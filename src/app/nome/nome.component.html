@@ -1,0 +1,28 @@
+<form #nomeForm="ngForm">
+    <div class="form-group">
+        <input type="number" placeholder="informe o número de nomes a serem lidos" [(ngModel)]="model.quantidade"
+            class="form-control" id="quantidade" name="quantidade">
+    </div>
+    <div *ngIf="model.quantidade && model.index < model.quantidade" class="form-group">
+        <input type="text" class="form-control" (keydown)="adicionarNome($event)"
+            placeholder="Digite o nome e aperte enter" [(ngModel)]="model.nomeAtual" id="nomeAtual" name="nomeAtual">
+    </div>
+    <div *ngIf="model.valores">
+        <h3>Nomes dos Autores</h3>
+        <ul class="list-group">
+            <li *ngFor="let valor of model.valores" class="list-group-item">{{valor}}</li>
+        </ul>
+    </div>
+    <div *ngIf="model.valoresProcessados">
+        <h3>Nomes dos Autores Pós Processamento</h3>
+        <ul class="list-group">
+            <li *ngFor="let valor of model.valoresProcessados" class="list-group-item">{{valor}}</li>
+        </ul>
+    </div>
+    <div *ngIf="model.quantidade && model.index === model.quantidade" class="form-group">
+        <button *ngIf="!this.model.processado" type="button" (click)="enviarNomes()"
+            class="btn btn-success">Processar</button>
+        <button type="button" (click)="limparNomes()"
+            class="btn btn-warning">Limpar</button>
+    </div>
+</form>
